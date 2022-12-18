@@ -7,6 +7,7 @@ import goUpFromCurrentDirectory from "./commands/up.js";
 import printListInformation from "./commands/list.js";
 import readAndWriteFile from "./commands/cat.js";
 import addNewFile from "./commands/add.js";
+import renameFile from "./commands/rn.js";
 
 chdir(homedir());
 
@@ -48,6 +49,21 @@ rl.on("line", async (data) => {
   if (data.slice(0, 3) === "add") {
     console.log(data.slice(4));
     addNewFile(data.slice(4));
+    return;
+  }
+  if (data.slice(0, 2) === "rn") {
+    let pathAndFileArray = data.slice(3).split(" ");
+    if (pathAndFileArray.length > 2) {
+      if (data[3] === `"`) {
+        pathAndFileArray = data.slice(3).split(`" `);
+      } else {
+        pathAndFileArray = data.slice(3).split(` "`);
+      }
+    }
+    const pathToFile = pathAndFileArray[0];
+    const newFile = pathAndFileArray[1];
+    console.log("rename === " + pathToFile);
+    renameFile(pathToFile, newFile);
     return;
   } else {
     console.error("Invalid input");

@@ -9,8 +9,7 @@ const addNewFile = async (nameFile) => {
   try {
     await writeFile(pathToFile, "", { flag: "wx" });
     console.log("File created!");
-  } catch (err) {
-    console.log(err);
+  } catch {
     console.log("Attention! Such a file already exists in this directory");
   } finally {
     showCurrentDirectoryMessage();
