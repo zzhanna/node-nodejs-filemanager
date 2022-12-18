@@ -46,6 +46,7 @@ rl.on("line", async (data) => {
     return;
   }
   if (data.slice(0, 3) === "add") {
+    console.log(data.slice(4));
     addNewFile(data.slice(4));
     return;
   } else {

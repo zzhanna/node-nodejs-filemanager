@@ -5,10 +5,12 @@ import showCurrentDirectoryMessage from "../helpers/showCurrentDirectoryMessage.
 
 const addNewFile = async (nameFile) => {
   const pathToFile = join(cwd(), nameFile);
+  console.log(`"${pathToFile}"`);
   try {
     await writeFile(pathToFile, "", { flag: "wx" });
     console.log("File created!");
-  } catch {
+  } catch (err) {
+    console.log(err);
     console.log("Attention! Such a file already exists in this directory");
   } finally {
     showCurrentDirectoryMessage();
