@@ -62,7 +62,6 @@ rl.on("line", async (data) => {
     }
     const pathToFile = pathAndFileArray[0];
     const newFile = pathAndFileArray[1];
-    console.log("rename === " + pathToFile);
     renameFile(pathToFile, newFile);
     return;
   } else {

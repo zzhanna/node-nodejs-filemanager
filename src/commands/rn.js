@@ -4,8 +4,6 @@ import { join } from "node:path";
 import showCurrentDirectoryMessage from "../helpers/showCurrentDirectoryMessage.js";
 
 const renameFile = async (pathToFile, newFile) => {
-  console.log(pathToFile);
-  console.log(newFile);
   showCurrentDirectoryMessage();
   try {
     const pathToOldFile = join(pathToFile.replaceAll(`"`, ""));
