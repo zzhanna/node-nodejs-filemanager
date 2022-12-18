@@ -5,6 +5,7 @@ import showCurrentDirectoryMessage from "./helpers/showCurrentDirectoryMessage.j
 import changeDirectory from "./commands/cd.js";
 import goUpFromCurrentDirectory from "./commands/up.js";
 import printListInformation from "./commands/list.js";
+import readAndWriteFile from "./commands/cat.js";
 
 chdir(homedir());
 
@@ -37,6 +38,10 @@ rl.on("line", async (data) => {
   }
   if (data === "ls") {
     printListInformation();
+    return;
+  }
+  if (data.slice(0, 3) === "cat") {
+    readAndWriteFile(data.slice(4));
     return;
   } else {
     console.error("Invalid input");
