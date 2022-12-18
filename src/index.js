@@ -6,6 +6,7 @@ import changeDirectory from "./commands/cd.js";
 import goUpFromCurrentDirectory from "./commands/up.js";
 import printListInformation from "./commands/list.js";
 import readAndWriteFile from "./commands/cat.js";
+import addNewFile from "./commands/add.js";
 
 chdir(homedir());
 
@@ -42,6 +43,10 @@ rl.on("line", async (data) => {
   }
   if (data.slice(0, 3) === "cat") {
     readAndWriteFile(data.slice(4));
+    return;
+  }
+  if (data.slice(0, 3) === "add") {
+    addNewFile(data.slice(4));
     return;
   } else {
     console.error("Invalid input");
