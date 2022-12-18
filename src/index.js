@@ -26,6 +26,15 @@ const goUpFromCurrentDirectory = () => {
   }
 };
 
+const changeDirectory = (path) => {
+  try {
+    chdir(path);
+    console.info(`You are currently in ${cwd()}`);
+  } catch (err) {
+    console.log("Operation failed");
+  }
+};
+
 rl.on("line", async (data) => {
   if (data === "up") {
     goUpFromCurrentDirectory();
@@ -34,6 +43,12 @@ rl.on("line", async (data) => {
   if (data === ".exit") {
     console.log(`Thank you for using File Manager, ${userName}, goodbye!`);
     setTimeout(() => exit(), 0);
+    return;
+  }
+  if (data.slice(0, 2) === "cd") {
+    console.log(data.slice(3));
+    changeDirectory(data.slice(3));
+    return;
   } else {
     console.error("Invalid input");
   }
