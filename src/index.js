@@ -1,6 +1,10 @@
 import { argv, cwd, chdir, stdin, stdout, exit } from "node:process";
 import { homedir } from "node:os";
 import * as readline from "readline/promises";
+import showCurrentDirectoryMessage from "./helpers/showCurrentDirectoryMessage.js";
+import changeDirectory from "./commands/cd.js";
+import goUpFromCurrentDirectory from "./commands/up.js";
+import printListInformation from "./commands/list.js";
 
 chdir(homedir());
 
@@ -11,29 +15,11 @@ const userName = argName !== "your_username" ? argName : "Anonymous";
 const rl = readline.createInterface({ input: stdin, output: stdout });
 
 const startWorkingDirectory = homedir();
-console.info(`Starting working directory ${startWorkingDirectory}`);
 
+console.info(`Starting working directory ${startWorkingDirectory}`);
 console.info(`Welcome to the File Manager, ${userName}!`);
 
-console.info(`You are currently in ${startWorkingDirectory}`);
-
-const goUpFromCurrentDirectory = () => {
-  try {
-    chdir("..");
-    console.info(`You are currently in ${cwd()}`);
-  } catch (err) {
-    console.error("Operation failed");
-  }
-};
-
-const changeDirectory = (path) => {
-  try {
-    chdir(path);
-    console.info(`You are currently in ${cwd()}`);
-  } catch (err) {
-    console.log("Operation failed");
-  }
-};
+showCurrentDirectoryMessage();
 
 rl.on("line", async (data) => {
   if (data === "up") {
@@ -46,8 +32,11 @@ rl.on("line", async (data) => {
     return;
   }
   if (data.slice(0, 2) === "cd") {
-    console.log(data.slice(3));
     changeDirectory(data.slice(3));
+    return;
+  }
+  if (data === "ls") {
+    printListInformation();
     return;
   } else {
     console.error("Invalid input");
