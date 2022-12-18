@@ -60,9 +60,9 @@ rl.on("line", async (data) => {
         pathAndFileArray = data.slice(3).split(` "`);
       }
     }
-    const pathToFile = pathAndFileArray[0];
+    const oldFile = pathAndFileArray[0];
     const newFile = pathAndFileArray[1];
-    renameFile(pathToFile, newFile);
+    renameFile(oldFile, newFile);
     return;
   } else {
     console.error("Invalid input");
