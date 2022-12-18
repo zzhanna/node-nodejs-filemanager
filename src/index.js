@@ -27,14 +27,19 @@ const goUpFromCurrentDirectory = () => {
 };
 
 rl.on("line", async (data) => {
-  if (data === "up") goUpFromCurrentDirectory();
-  if (data === "exit") {
-    console.log(`Thank you for using File Manager, ${userName}!`);
+  if (data === "up") {
+    goUpFromCurrentDirectory();
+    return;
+  }
+  if (data === ".exit") {
+    console.log(`Thank you for using File Manager, ${userName}, goodbye!`);
     setTimeout(() => exit(), 0);
+  } else {
+    console.error("Invalid input");
   }
 })
   .on("SIGINT", () => rl.close())
   .on("close", () =>
-    console.log(`Thank you for using File Manager, ${userName}!`)
+    console.log(`Thank you for using File Manager, ${userName}, goodbye!`)
   )
-  .on("error", (err) => console.error(err));
+  .on("error", () => console.error("Invalid input"));
