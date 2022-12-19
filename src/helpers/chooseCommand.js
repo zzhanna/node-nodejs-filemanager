@@ -12,26 +12,26 @@ import deleteFile from "../commands/fileSystem/rm.js";
 import osInform from "../commands/os/os.js";
 import calculateHash from "../commands/hash/hash.js";
 import compressFile from "../commands/compessDecompress/compress.js";
+import decompressFile from "../commands/compessDecompress/decompress.js";
 
 const chooseCommand = (data, userName) => {
+  const command = data.slice(0, data.indexOf(" "));
+  const commandLength = command.length;
+  const informationFromUserAfterCommand = data.slice(commandLength + 1);
   try {
-    const command = data.slice(0, data.indexOf(" "));
-    const commandLength = command.length;
-    const informationFromUserAfterCommand = data.slice(commandLength + 1);
-    if (command === "up") {
+    if (data.slice(0, 2) === "up") {
       goUpFromCurrentDirectory();
       return;
     }
-    if (command === ".exit") {
+    if (data.slice(0, 5) === ".exit") {
       console.log(`Thank you for using File Manager, ${userName}, goodbye!`);
-      setTimeout(() => exit(), 0);
-      return;
+      process.exit();
     }
     if (command === "cd") {
       changeDirectory(informationFromUserAfterCommand.replaceAll(`"`, ""));
       return;
     }
-    if (command === "ls") {
+    if (data.slice(0, 2) === "ls") {
       printListInformation(informationFromUserAfterCommand.replaceAll(`"`, ""));
       return;
     }
@@ -99,6 +99,22 @@ const chooseCommand = (data, userName) => {
         ""
       );
       compressFile(pathToFile, pathToFileCompressed);
+      return;
+    }
+    if (command === "decompress") {
+      const arrayPathFileToDeCompress = getInformationFromUserInArray(
+        command,
+        informationFromUserAfterCommand
+      );
+      const pathToCompressedFile = arrayPathFileToDeCompress[0].replaceAll(
+        `"`,
+        ""
+      );
+      const pathToFileDecompress = arrayPathFileToDeCompress[1].replaceAll(
+        `"`,
+        ""
+      );
+      decompressFile(pathToCompressedFile, pathToFileDecompress);
       return;
     } else {
       console.error("Invalid input");
