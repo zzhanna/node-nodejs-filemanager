@@ -9,6 +9,7 @@ import copyFile from "../commands/cp.js";
 import moveFile from "../commands/move.js";
 import showCurrentDirectoryMessage from "./showCurrentDirectoryMessage.js";
 import deleteFile from "../commands/rm.js";
+import osInform from "../commands/os/os.js";
 
 const chooseCommand = (data, userName) => {
   try {
@@ -73,6 +74,11 @@ const chooseCommand = (data, userName) => {
     if (command === "rm") {
       const deletePathFile = informationFromUserAfterCommand;
       deleteFile(deletePathFile);
+      return;
+    }
+    if (command === "os") {
+      const commandOs = informationFromUserAfterCommand.replaceAll("--", "");
+      osInform(commandOs);
       return;
     } else {
       console.error("Invalid input");
