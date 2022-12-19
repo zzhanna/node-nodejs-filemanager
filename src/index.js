@@ -2,12 +2,7 @@ import { argv, cwd, chdir, stdin, stdout, exit } from "node:process";
 import { homedir } from "node:os";
 import * as readline from "readline/promises";
 import showCurrentDirectoryMessage from "./helpers/showCurrentDirectoryMessage.js";
-import changeDirectory from "./commands/cd.js";
-import goUpFromCurrentDirectory from "./commands/up.js";
-import printListInformation from "./commands/list.js";
-import readAndWriteFile from "./commands/cat.js";
-import addNewFile from "./commands/add.js";
-import renameFile from "./commands/rn.js";
+import chooseCommand from "./helpers/chooseCommand.js";
 
 chdir(homedir());
 
@@ -24,50 +19,7 @@ console.info(`Welcome to the File Manager, ${userName}!`);
 
 showCurrentDirectoryMessage();
 
-rl.on("line", async (data) => {
-  if (data === "up") {
-    goUpFromCurrentDirectory();
-    return;
-  }
-  if (data === ".exit") {
-    console.log(`Thank you for using File Manager, ${userName}, goodbye!`);
-    setTimeout(() => exit(), 0);
-    return;
-  }
-  if (data.slice(0, 2) === "cd") {
-    changeDirectory(data.slice(3));
-    return;
-  }
-  if (data === "ls") {
-    printListInformation();
-    return;
-  }
-  if (data.slice(0, 3) === "cat") {
-    readAndWriteFile(data.slice(4));
-    return;
-  }
-  if (data.slice(0, 3) === "add") {
-    console.log(data.slice(4));
-    addNewFile(data.slice(4));
-    return;
-  }
-  if (data.slice(0, 2) === "rn") {
-    let pathAndFileArray = data.slice(3).split(" ");
-    if (pathAndFileArray.length > 2) {
-      if (data[3] === `"`) {
-        pathAndFileArray = data.slice(3).split(`" `);
-      } else {
-        pathAndFileArray = data.slice(3).split(` "`);
-      }
-    }
-    const oldFile = pathAndFileArray[0];
-    const newFile = pathAndFileArray[1];
-    renameFile(oldFile, newFile);
-    return;
-  } else {
-    console.error("Invalid input");
-  }
-})
+rl.on("line", async (data) => chooseCommand(data, userName))
   .on("SIGINT", () => rl.close())
   .on("close", () =>
     console.log(`Thank you for using File Manager, ${userName}, goodbye!`)

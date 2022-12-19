@@ -4,6 +4,7 @@ import showCurrentDirectoryMessage from "../helpers/showCurrentDirectoryMessage.
 
 export default async function readAndWriteFile(pathString) {
   const pathToFile = join(pathString);
+  console.log(pathString);
   let data = "";
   try {
     const rs = createReadStream(pathToFile, { encoding: "utf8" });
@@ -12,10 +13,11 @@ export default async function readAndWriteFile(pathString) {
     })
       .on("end", () => {
         console.log(data);
+        showCurrentDirectoryMessage();
       })
       .on("error", () => {
         console.log(
-          `Attention! Can't found or read a file with such path ${pathString}`
+          `Attention! Can't found or read a file with such path or name ${pathString}`
         );
         showCurrentDirectoryMessage();
       });
