@@ -3,10 +3,9 @@ import { join } from "node:path";
 import showCurrentDirectoryMessage from "../helpers/showCurrentDirectoryMessage.js";
 
 export default async function readAndWriteFile(pathString) {
-  const pathToFile = join(pathString);
-  console.log(pathString);
   let data = "";
   try {
+    const pathToFile = join(pathString);
     const rs = createReadStream(pathToFile, { encoding: "utf8" });
     rs.on("data", (chunk) => {
       data += chunk;
@@ -17,11 +16,11 @@ export default async function readAndWriteFile(pathString) {
       })
       .on("error", () => {
         console.log(
-          `Attention! Can't found or read a file with such path or name ${pathString}`
+          `Operation failed! Can't found or read a file with such path or name ${pathString}`
         );
         showCurrentDirectoryMessage();
       });
-  } catch {
+  } catch (err) {
     console.log("Operation failed");
     showCurrentDirectoryMessage();
   }

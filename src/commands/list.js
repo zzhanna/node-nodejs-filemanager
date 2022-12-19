@@ -36,7 +36,7 @@ export default async function printListInformation() {
         .map((file) => ({ Name: file, Type: "another type" })),
     ]);
     showCurrentDirectoryMessage();
-  } catch {
+  } catch (err) {
     console.log("Operation failed");
   }
 }
