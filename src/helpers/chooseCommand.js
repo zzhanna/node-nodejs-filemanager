@@ -10,6 +10,7 @@ import moveFile from "../commands/move.js";
 import showCurrentDirectoryMessage from "./showCurrentDirectoryMessage.js";
 import deleteFile from "../commands/rm.js";
 import osInform from "../commands/os/os.js";
+import calculateHash from "../commands/hash.js";
 
 const chooseCommand = (data, userName) => {
   try {
@@ -79,6 +80,11 @@ const chooseCommand = (data, userName) => {
     if (command === "os") {
       const commandOs = informationFromUserAfterCommand.replaceAll("--", "");
       osInform(commandOs);
+      return;
+    }
+    if (command === "hash") {
+      const pathFileToHash = informationFromUserAfterCommand;
+      calculateHash(pathFileToHash.replaceAll(`"`, ""));
       return;
     } else {
       console.error("Invalid input");
