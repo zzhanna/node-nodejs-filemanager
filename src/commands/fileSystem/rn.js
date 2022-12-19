@@ -1,6 +1,6 @@
 import { rename } from "node:fs/promises";
 import { resolve } from "node:path";
-import showCurrentDirectoryMessage from "../helpers/showCurrentDirectoryMessage.js";
+import showCurrentDirectoryMessage from "../../helpers/showCurrentDirectoryMessage.js";
 
 const renameFile = async (oldFile, newFile) => {
   try {

@@ -1,7 +1,7 @@
 import { writeFile } from "node:fs/promises";
 
 import { resolve } from "node:path";
-import showCurrentDirectoryMessage from "../helpers/showCurrentDirectoryMessage.js";
+import showCurrentDirectoryMessage from "../../helpers/showCurrentDirectoryMessage.js";
 
 const addNewFile = async (nameFile) => {
   try {
@@ -10,7 +10,7 @@ const addNewFile = async (nameFile) => {
     console.log("File created!");
   } catch (err) {
     console.log(
-      "Operation failed! Such a file already exists in this directory"
+      "Operation failed! Invalid path or such file already exists in this directory"
     );
   } finally {
     showCurrentDirectoryMessage();

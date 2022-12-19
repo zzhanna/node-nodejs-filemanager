@@ -1,16 +1,17 @@
-import changeDirectory from "../commands/cd.js";
-import goUpFromCurrentDirectory from "../commands/up.js";
-import printListInformation from "../commands/list.js";
-import readAndWriteFile from "../commands/cat.js";
-import addNewFile from "../commands/add.js";
-import renameFile from "../commands/rn.js";
+import changeDirectory from "../commands/fileSystem/cd.js";
+import goUpFromCurrentDirectory from "../commands/fileSystem/up.js";
+import printListInformation from "../commands/fileSystem/list.js";
+import readAndWriteFile from "../commands/fileSystem/cat.js";
+import addNewFile from "../commands/fileSystem/add.js";
+import renameFile from "../commands/fileSystem/rn.js";
 import getInformationFromUserInArray from "./getInformationFromUserInArray.js";
-import copyFile from "../commands/cp.js";
-import moveFile from "../commands/move.js";
+import copyFile from "../commands/fileSystem/cp.js";
+import moveFile from "../commands/fileSystem/move.js";
 import showCurrentDirectoryMessage from "./showCurrentDirectoryMessage.js";
-import deleteFile from "../commands/rm.js";
+import deleteFile from "../commands/fileSystem/rm.js";
 import osInform from "../commands/os/os.js";
-import calculateHash from "../commands/hash.js";
+import calculateHash from "../commands/hash/hash.js";
+import compressFile from "../commands/compessDecompress/compress.js";
 
 const chooseCommand = (data, userName) => {
   try {
@@ -85,6 +86,19 @@ const chooseCommand = (data, userName) => {
     if (command === "hash") {
       const pathFileToHash = informationFromUserAfterCommand;
       calculateHash(pathFileToHash.replaceAll(`"`, ""));
+      return;
+    }
+    if (command === "compress") {
+      const arrayPathFileToCompress = getInformationFromUserInArray(
+        command,
+        informationFromUserAfterCommand
+      );
+      const pathToFile = arrayPathFileToCompress[0].replaceAll(`"`, "");
+      const pathToFileCompressed = arrayPathFileToCompress[1].replaceAll(
+        `"`,
+        ""
+      );
+      compressFile(pathToFile, pathToFileCompressed);
       return;
     } else {
       console.error("Invalid input");

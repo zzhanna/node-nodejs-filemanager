@@ -1,6 +1,6 @@
 import { createReadStream } from "node:fs";
 import { join } from "node:path";
-import showCurrentDirectoryMessage from "../helpers/showCurrentDirectoryMessage.js";
+import showCurrentDirectoryMessage from "../../helpers/showCurrentDirectoryMessage.js";
 
 export default async function readAndWriteFile(pathString) {
   let data = "";

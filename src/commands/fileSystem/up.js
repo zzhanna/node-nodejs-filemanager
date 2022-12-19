@@ -1,5 +1,5 @@
 import { chdir } from "node:process";
-import showCurrentDirectoryMessage from "../helpers/showCurrentDirectoryMessage.js";
+import showCurrentDirectoryMessage from "../../helpers/showCurrentDirectoryMessage.js";
 
 export default function goUpFromCurrentDirectory() {
   try {

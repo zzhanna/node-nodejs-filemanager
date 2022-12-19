@@ -1,4 +1,4 @@
-import { argv, cwd, chdir, stdin, stdout, exit } from "node:process";
+import { argv, chdir, stdin, stdout, exit } from "node:process";
 import { homedir } from "node:os";
 import * as readline from "readline/promises";
 import showCurrentDirectoryMessage from "./helpers/showCurrentDirectoryMessage.js";

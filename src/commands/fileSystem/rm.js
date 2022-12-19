@@ -2,7 +2,6 @@ import { access, rm } from "node:fs/promises";
 import { F_OK } from "node:fs";
 
 const deleteFile = async (fileRemove) => {
-  console.log("rty");
   try {
     const pathRemoveFile = fileRemove.replaceAll(`"`, "");
     const isFileDeleteExists = await access(pathRemoveFile, F_OK)
