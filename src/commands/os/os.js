@@ -1,5 +1,6 @@
 import { cpus, EOL, userInfo } from "node:os";
 import { arch } from "node:process";
+import showCurrentDirectoryMessage from "../../helpers/showCurrentDirectoryMessage.js";
 
 const osInform = (command) => {
   try {
@@ -16,12 +17,16 @@ const osInform = (command) => {
       architecture: arch,
     };
     if (osInform[command]) {
-      console.log(osInform[command]);
+      command === "cpus"
+        ? console.table(osInform[command])
+        : console.log(osInform[command]);
     } else {
       throw Error;
     }
   } catch {
     console.log("Operation failed!");
+  } finally {
+    showCurrentDirectoryMessage();
   }
 };
 
